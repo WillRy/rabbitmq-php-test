@@ -11,7 +11,7 @@ $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
 $payload = json_encode([
     'class' => "App\\Mail",
     'body' => [
-        "title" => "New Open Jobs"
+        "title" => "New Open Jobs".uniqid()
     ]
 ]);
 
@@ -20,7 +20,7 @@ try {
 
     $sender->openConnection();
     $sender->setQueue('Mail-Alert');
-    $sender->queue(false, false, false, false);
+    $sender->queue(false, true, false, false);
     $sender->setMessage($payload);
     $sender->closeConnection();
 } catch (\Exception $e) {

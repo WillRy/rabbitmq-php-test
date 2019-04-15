@@ -15,9 +15,9 @@ class Receiver extends Queue
     }
 
 
-    public function consume($callback)
+    public function consume($callback,$no_ack = true)
     {
-        $this->channel->basic_consume($this->queue, '', false, true, false, false, $callback);
+        $this->channel->basic_consume($this->queue, '',  false, $no_ack, false, false, $callback);
     }
 
     public function run()
